@@ -49,13 +49,12 @@ public final class CheckoutFourSdk {
         @Override
         protected SdkCredentials getSdkCredentials() {
             if (this.authorizationUri == null) {
-                final Environment environment = getEnvironment();
                 if (environment == null) {
                     throw new CheckoutArgumentException("Invalid configuration. Please specify an Environment or a specific OAuth authorizationURI.");
                 }
                 this.authorizationUri = environment.getOAuthAuthorizeUri();
             }
-            final FourOAuthSdkCredentials credentials = new FourOAuthSdkCredentials(authorizationUri, clientId, clientSecret, scopes);
+            final FourOAuthSdkCredentials credentials = new FourOAuthSdkCredentials(httpClientBuilder, authorizationUri, clientId, clientSecret, scopes);
             credentials.initOAuthAccess();
             return credentials;
         }

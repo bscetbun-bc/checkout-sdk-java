@@ -9,10 +9,11 @@ import static java.util.Optional.ofNullable;
 
 public abstract class AbstractCheckoutSdkBuilder<T extends CheckoutApiClient> {
 
-    private Environment environment;
+    protected Environment environment;
+    protected HttpClientBuilder httpClientBuilder = HttpClientBuilder.create();
+
     private Environment filesApiEnvironment;
     private URI uri;
-    private HttpClientBuilder httpClientBuilder;
     private Executor executor;
 
     public AbstractCheckoutSdkBuilder<T> environment(final Environment environment) {
@@ -40,10 +41,6 @@ public abstract class AbstractCheckoutSdkBuilder<T extends CheckoutApiClient> {
         return this;
     }
 
-    protected Environment getEnvironment() {
-        return environment;
-    }
-
     protected abstract SdkCredentials getSdkCredentials();
 
     protected CheckoutConfiguration getCheckoutConfiguration() {
@@ -57,7 +54,7 @@ public abstract class AbstractCheckoutSdkBuilder<T extends CheckoutApiClient> {
     private CheckoutConfiguration buildCheckoutConfiguration(final SdkCredentials sdkCredentials) {
         final FilesApiConfiguration filesApiConfiguration = ofNullable(filesApiEnvironment).map(FilesApiConfiguration::new).orElse(null);
         if (uri == null) {
-            return new DefaultCheckoutConfiguration(sdkCredentials, getEnvironment(), httpClientBuilder, executor, filesApiConfiguration);
+            return new DefaultCheckoutConfiguration(sdkCredentials, environment, httpClientBuilder, executor, filesApiConfiguration);
         }
         return new DefaultCheckoutConfiguration(sdkCredentials, uri, httpClientBuilder, executor, filesApiConfiguration);
     }
