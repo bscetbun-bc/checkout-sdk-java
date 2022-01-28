@@ -46,10 +46,6 @@ buildScan {
 }
 
 test {
-    environment "CHECKOUT_PUBLIC_KEY", System.getenv("CHECKOUT_PUBLIC_KEY")
-    environment "CHECKOUT_SECRET_KEY", System.getenv("CHECKOUT_SECRET_KEY")
-    environment "CHECKOUT_FOUR_PUBLIC_KEY", System.getenv("CHECKOUT_FOUR_PUBLIC_KEY")
-    environment "CHECKOUT_FOUR_SECRET_KEY", System.getenv("CHECKOUT_FOUR_SECRET_KEY")
     systemProperty "org.slf4j.simpleLogger.defaultLogLevel", "INFO"
     useJUnitPlatform()
     testLogging {
