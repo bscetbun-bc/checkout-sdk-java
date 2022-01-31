@@ -1,0 +1,1 @@
+package com.checkout.samples.abc.connecttoken; // OAuth not available for ABC
